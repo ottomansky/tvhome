@@ -1,0 +1,18 @@
+{
+  "name": "tvhome",
+  "appName": "TV Home",
+  "version": "1.0.0",
+  "description": "A calm home screen for Samsung TVs: trending film backdrops in 4K, clock, weather and your apps.",
+  "packageType": "app",
+  "appPath": "index.html",
+  "serviceFile": "service.js",
+  "keys": [],
+  "author": "Maxmilian Ottomansky",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/ottomansky/tvhome"
+  },
+  "scripts": {
+    "test": "node test/service.test.js"
+  }
+}

@@ -1,0 +1,27 @@
+name: Refresh backdrops
+
+# Daily list of trending films and series for the TV. The TMDB key lives in the TMDB_KEY repository secret.
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch trending backdrops
+        env:
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+        run: python3 scripts/fetch_backdrops.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/backdrops.json
+          git diff --cached --quiet || git commit -m "Refresh backdrops"
+          git push
