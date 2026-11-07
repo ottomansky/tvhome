@@ -22,10 +22,13 @@ function send(res, code, body) {
   res.end(JSON.stringify(body));
 }
 
+// Every call into tizen is wrapped: an uncaught error here would stop TizenBrew's whole background service.
 function installedApps(done) {
-  tizen.application.getAppsInfo(function (list) {
-    done(null, list.map(function (a) { return { id: a.id, name: a.name }; }));
-  }, function (err) { done(err); });
+  try {
+    tizen.application.getAppsInfo(function (list) {
+      try { done(null, list.map(function (a) { return { id: a.id, name: a.name }; })); } catch (e) { done(e); }
+    }, function (err) { done(err); });
+  } catch (e) { done(e); }
 }
 
 // Pick the first preferred ID that is installed, otherwise the first app whose name contains `match`.
@@ -44,6 +47,10 @@ function pick(apps, ids, match) {
 }
 
 var server = http.createServer(function (req, res) {
+  try { route(req, res); } catch (e) { send(res, 500, { ok: false, error: String(e.message || e) }); }
+});
+
+function route(req, res) {
   var q = url.parse(req.url, true);
 
   if (q.pathname === '/apps') {
@@ -60,16 +67,20 @@ var server = http.createServer(function (req, res) {
       if (err) return send(res, 500, { ok: false, error: String(err.message || err) });
       var app = pick(apps, ids, match);
       if (!app) return send(res, 404, { ok: false, error: 'not_installed' });
-      tizen.application.launch(app.id, function () {
-        send(res, 200, { ok: true, id: app.id, name: app.name });
-      }, function (e) {
+      try {
+        tizen.application.launch(app.id, function () {
+          send(res, 200, { ok: true, id: app.id, name: app.name });
+        }, function (e) {
+          send(res, 500, { ok: false, error: String(e.message || e), id: app.id });
+        });
+      } catch (e) {
         send(res, 500, { ok: false, error: String(e.message || e), id: app.id });
-      });
+      }
     });
   }
 
   send(res, 200, { ok: true, service: 'tvhome' });
-});
+}
 
 // TizenBrew restarts a crashed service on the next launch, so a busy port (already running) is fine.
 server.on('error', function (e) { console.log('tvhome service: ' + e.message); });

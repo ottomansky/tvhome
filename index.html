@@ -469,10 +469,14 @@
   }
 
   // Native Samsung apps: ask service.js, which can use the TV's app launcher.
-  function openApp(app) {
+  // TizenBrew starts service.js only when this page opens, so right after start it may need a moment.
+  function openApp(app, retried) {
     var q = SERVICE + '/launch?ids=' + encodeURIComponent((app.ids || []).join(',')) + '&match=' + encodeURIComponent(app.match || '');
     return getJSON(q, 8000).then(function (d) {
       if (!d || !d.ok) throw new Error(d && d.error === 'not_installed' ? 'not_installed' : 'failed');
+    }, function (err) {
+      if (retried) throw err;
+      return new Promise(function (r) { setTimeout(r, 2000); }).then(function () { return openApp(app, true); });
     });
   }
 

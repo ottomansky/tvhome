@@ -6,7 +6,16 @@
   "packageType": "app",
   "appPath": "index.html",
   "serviceFile": "service.js",
-  "keys": [],
+  "keys": [
+    "MediaPlayPause",
+    "MediaPlay",
+    "MediaPause",
+    "MediaStop",
+    "MediaFastForward",
+    "MediaRewind",
+    "MediaTrackNext",
+    "MediaTrackPrevious"
+  ],
   "author": "Maxmilian Ottomansky",
   "license": "MIT",
   "repository": {

@@ -19,7 +19,9 @@ var installed = [
 var tizen = {
   application: {
     getAppsInfo: function (ok) { setTimeout(function () { ok(installed); }, 5); },
-    launch: function (id, ok) { launched.push(id); console.log('  fake TV launched ' + id); setTimeout(ok, 5); }
+    launch: function (id, ok) {
+      if (id === 'org.tizen.browser') throw new Error('SecurityError');   // a TV that refuses, to test the guard
+      launched.push(id); console.log('  fake TV launched ' + id); setTimeout(ok, 5); }
   }
 };
 
@@ -53,6 +55,12 @@ if (process.argv.indexOf('--serve') >= 0) {
       return get('/apps');
     }).then(function (r) {
       check('App list is available', r.json.ok && r.json.apps.length === installed.length);
+      return get('/launch?ids=org.tizen.browser&match=internet');
+    }).then(function (r) {
+      check('A launch error is reported, not thrown', r.status === 500 && r.json.error === 'SecurityError');
+      return get('/apps');
+    }).then(function (r) {
+      check('Service still answers after that error', r.json.ok);
       check('Exactly two launches happened', launched.length === 2);
       console.log(fails ? fails + ' check(s) failed' : 'all checks passed');
       process.exit(fails ? 1 : 0);

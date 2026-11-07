@@ -48,6 +48,10 @@ Nothing on the screen stays still for hours: every 3 minutes all text and tiles 
 
 Edit the `APPS` list near the top of the script in `index.html`: name, colors, logo, and what to open (`module`, `ids`, `match`). To see the IDs of the apps on your TV, open `http://127.0.0.1:8091/apps` from any TizenBrew module page, or check the service's answer in the TizenBrew debugger.
 
+## Updates
+
+TizenBrew loads the module through jsDelivr, which caches GitHub files for up to about 12 hours, so a change reaches the TV the next day, or right away after a cache purge at `https://purge.jsdelivr.net/gh/ottomansky/tvhome/index.html` (same for `service.js` and `package.json`). The backdrop list is read straight from GitHub and is fresh every morning.
+
 ## Tests
 
 `npm test` runs `service.js` the way TizenBrew does, against a fake TV, and checks which apps it starts.
