@@ -75,7 +75,7 @@ tvApi.listen(8001, '127.0.0.1', function () {
   function check(name, cond) { console.log((cond ? 'PASS ' : 'FAIL ') + name); if (!cond) fails++; }
   setTimeout(function () {
     get('/open?id=rTn6ClEurC.Jellyfin&ids=rTn6ClEurC.Jellyfin&match=jellyfin').then(function (r) {
-      check('Jellyfin opens through the TV API and is reported in front', r.status === 200 && r.json.via === 'tv' && r.json.visible === true && r.cors === '*');
+      check('Jellyfin opens through the TV API and is reported running', r.status === 200 && r.json.via === 'tv' && r.json.running === true && r.cors === '*');
       return get('/open?id=lazy.App');
     }).then(function (r) {
       check('An app that never starts falls back to tizen, which does not have it', r.status === 404 && r.json.error === 'not_installed');

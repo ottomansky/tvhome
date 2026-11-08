@@ -4,7 +4,7 @@
 // so it asks this service, which can.
 //
 //   GET http://127.0.0.1:8091/open?id=<tv id>&ids=<id,id>&match=<name>
-//        start an app through the TV's app API (port 8001), then report whether it took the screen;
+//        start an app through the TV's app API (port 8001), then report whether it runs;
 //        if the TV does not know that ID, fall back to tizen.application.launch with ids / match
 //   GET http://127.0.0.1:8091/launch?ids=<id,id>&match=<name>   only the tizen.application fallback
 //   GET http://127.0.0.1:8091/key?k=KEY_HDMI1                    press a remote key (HDMI 1, Menu, ...)
@@ -54,20 +54,19 @@ function tvApi(method, id, done) {
   } catch (e) { end(e); }
 }
 
-// Answers { ok, visible, running }, or { fallback: true } when only the tizen launcher can still help:
-// the API is not there (connection refused), does not know the ID (404), or the app never even started.
+// Answers { ok, running }, or { fallback: true } when only the tizen launcher can still help:
+// the API is not there (connection refused), does not know the ID (404), or the app never started.
 // A POST that merely timed out is not retried another way: the TV may still be starting the app.
+// (This TV always reports visible: false, so "running" after an accepted POST is the proof we have.)
 function openByTvApi(id, done) {
   var deadline = Date.now() + DEADLINE_MS;
   tvApi('POST', id, function (err, status) {
     if (err) return done(null, err.code === 'ECONNREFUSED' ? { fallback: true } : { ok: false, error: 'timeout' });
-    if (status === 404) return done(null, { fallback: true });
     if (status !== 200) return done(null, { fallback: true });
     (function check() {
       tvApi('GET', id, function (e, s, app) {
-        if (!e && app && app.visible) return done(null, { ok: true, id: id, name: app.name, visible: true, via: 'tv' });
+        if (!e && app && app.running) return done(null, { ok: true, id: id, name: app.name, running: true, visible: !!app.visible, via: 'tv' });
         if (Date.now() + CHECK_MS < deadline) return setTimeout(check, CHECK_MS);
-        if (app && app.running) return done(null, { ok: true, id: id, name: app.name, visible: false, running: true, via: 'tv' });
         done(null, { fallback: true });
       });
     })();
