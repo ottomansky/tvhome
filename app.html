@@ -877,8 +877,14 @@
   });
   document.addEventListener('mousemove', function () { wake(); });
   // Coming back from an app: clear the launch veil and show the app row again.
+  // Installed as its own app: keep Samsung's screen saver away while TV Home is in front.
+  // TV Home's own calm mode, dimming and pixel shift look after the OLED instead.
+  function noSamsungSaver() {
+    try { webapis.appcommon.setScreenSaver(webapis.appcommon.AppCommonScreenSaverState.SCREEN_SAVER_OFF, function () {}, function () {}); } catch (e) {}
+  }
+  noSamsungSaver();
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) { hideVeil(); wake(); if (mode === 'all') renderGrid(); }
+    if (!document.hidden) { noSamsungSaver(); hideVeil(); wake(); if (mode === 'all') renderGrid(); }
   });
 
   setFocus(0);
