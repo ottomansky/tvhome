@@ -91,12 +91,12 @@
   /* ---------- App row ---------- */
   .dock {
     position: fixed; left: var(--safe-x); right: var(--safe-x); bottom: 7.5rem;
-    display: flex; gap: 2.25rem; list-style: none;
+    display: flex; gap: 1.375rem; list-style: none;
     transition: opacity 0.8s ease, transform 0.8s var(--ease);
   }
   .tile {
     position: relative;
-    width: 16rem; height: 9.6rem;             /* 5:3, the tvOS app icon ratio */
+    width: 10.75rem; height: 6.45rem;             /* 5:3, the tvOS app icon ratio */
     border: 0; border-radius: 1.5rem;
     background: var(--bg); color: var(--fg);
     display: flex; align-items: center; justify-content: center;
@@ -104,8 +104,8 @@
     box-shadow: 0 0.75rem 2rem rgba(0,0,0,0.35);
     transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease);
   }
-  .tile svg { width: 4.5rem; height: 4.5rem; fill: currentColor; }
-  .tile .word { font-size: 2.125rem; font-weight: 700; letter-spacing: -0.02em; }
+  .tile svg { width: 3.1rem; height: 3.1rem; fill: currentColor; }
+  .tile .word { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
   .tile.glass {
     background: var(--glass);
     -webkit-backdrop-filter: blur(1.5rem) saturate(1.4);
@@ -218,23 +218,29 @@
 
 <script>
   // ===== Apps: edit names, colors, logos and what each tile opens here. =====
-  // module: a TizenBrew module to open if it is in TizenBrew's list (YouTube opens TizenTube, without ads).
-  // ids:    Samsung app IDs to try, in order. IDs differ between TV years, so these are only hints.
-  // match:  otherwise open the first installed app whose name contains this text.
-  // icon:   a key from ICONS (Simple Icons, CC0), or "globe".
+  // tv:     the ID the TV's own app API launches (check: http://<tv-ip>:8001/api/v2/applications/<id>).
+  // ids:    backup IDs for the TizenBrew helper (service.js), tried in order.
+  // match:  otherwise the helper opens the first installed app whose name contains this text.
+  // icon:   a key from ICONS (Simple Icons, CC0), "globe", or "word" to show the name as text.
   var APPS = [
-    { name: 'YouTube',   icon: 'youtube',  bg: 'linear-gradient(160deg,#ff2a2a,#c40000)', fg: '#fff',
-      module: 'npm/@foxreis/tizentube', ids: ['xvvl3S1TT1.TizenTubeStandalone', '9Ur5IzDKqV.TizenYouTube', 'com.samsung.tv.cobalt-yt', '111299001912'], match: 'youtube' },
+    { name: 'TizenTube', icon: 'youtube',  bg: 'linear-gradient(160deg,#ff2a2a,#c40000)', fg: '#fff',
+      tv: 'xvvl3S1TT1.TizenTubeStandalone', ids: ['xvvl3S1TT1.TizenTubeStandalone'], match: 'tizentube' },
     { name: 'Jellyfin',  icon: 'jellyfin', bg: 'linear-gradient(135deg,#aa5cc3,#00a4dc)', fg: '#fff',
-      module: 'npm/@glenlowland/jellyfin-tizen', ids: ['rTn6ClEurC.Jellyfin', 'AprZAARz4r.Jellyfin'], match: 'jellyfin' },
+      tv: 'rTn6ClEurC.Jellyfin', ids: ['rTn6ClEurC.Jellyfin'], match: 'jellyfin' },
     { name: 'Netflix',   icon: 'netflix',  bg: 'linear-gradient(160deg,#1c1c1c,#000)',    fg: '#e50914',
-      ids: ['org.tizen.netflix-app', '3201907018807', '11101200001'], match: 'netflix' },
+      tv: '3201907018807', ids: ['org.tizen.netflix-app'], match: 'netflix' },
     { name: 'HBO Max',   icon: 'hbomax',   bg: 'linear-gradient(160deg,#2a2fd8,#0b0d4f)', fg: '#fff',
-      ids: ['5b8c3eb16b.BeamCTVDev', '3202301029760', '3201601007230'], match: 'hbo max' },
+      tv: '5b8c3eb16b.BeamCTVDev', ids: ['5b8c3eb16b.BeamCTVDev'], match: 'hbo max' },
+    { name: 'iVysílání', icon: 'word',     bg: 'linear-gradient(160deg,#4a4f5c,#1c1f26)', fg: '#fff',
+      tv: 'j7L028mExx.ivysilaniTest', ids: ['j7L028mExx.ivysilaniTest'], match: 'ivysílání' },
+    { name: 'Oneplay',   icon: 'word',     bg: 'linear-gradient(160deg,#5b2be0,#2a0f7a)', fg: '#fff',
+      tv: 'JIFtSZfRwy.voyoTizenCZ', ids: ['JIFtSZfRwy.voyoTizenCZ'], match: 'oneplay' },
+    { name: 'Prima+',    icon: 'word',     bg: 'linear-gradient(160deg,#e3262f,#8a0b12)', fg: '#fff',
+      tv: 'sLZ6zpyDlX.iPrimaTizen', ids: ['sLZ6zpyDlX.iPrimaTizen'], match: 'prima' },
     { name: 'Spotify',   icon: 'spotify',  bg: 'linear-gradient(160deg,#1f1f1f,#0a0a0a)', fg: '#1ed760',
-      ids: ['rJeHak5zRg.Spotify', '3201606009684'], match: 'spotify' },
-    { name: 'Prohlížeč', icon: 'globe',    glass: true, fg: '#fff',
-      ids: ['org.tizen.browser', '3202010022079'], match: 'internet' }
+      tv: 'rJeHak5zRg.Spotify', ids: ['rJeHak5zRg.Spotify'], match: 'spotify' },
+    { name: 'Internet',  icon: 'globe',    glass: true, fg: '#fff',
+      tv: '3202010022079', ids: ['org.tizen.browser'], match: 'internet' }
   ];
   // Logo paths from Simple Icons 16.36.0 (simple-icons.org). Brand marks belong to their owners; personal use only.
   var ICONS = {"youtube": "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z", "netflix": "m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z", "jellyfin": "M12 .002C8.826.002-1.398 18.537.16 21.666c1.56 3.129 22.14 3.094 23.682 0C25.384 18.573 15.177 0 12 0zm7.76 18.949c-1.008 2.028-14.493 2.05-15.514 0C3.224 16.9 9.92 4.755 12.003 4.755c2.081 0 8.77 12.166 7.759 14.196zM12 9.198c-1.054 0-4.446 6.15-3.93 7.189.518 1.04 7.348 1.027 7.86 0 .511-1.027-2.874-7.19-3.93-7.19z", "hbomax": "M3.784 8.716c-.655 0-1.32.29-2.173.946v-.78H0v6.236h1.715V11.24c.749-.592 1.091-.78 1.372-.78.333 0 .551.209.551.729v3.928h1.715V11.23c.748-.582 1.081-.769 1.372-.769.333 0 .55.208.55.728v3.928H8.99v-4.53c0-1.403-.8-1.871-1.57-1.871-.654 0-1.32.27-2.192.936-.28-.697-.894-.936-1.444-.936zm8.689 0c-1.705 0-3.118 1.466-3.118 3.284 0 1.82 1.413 3.285 3.118 3.285.842 0 1.57-.312 2.131-.988v.82h1.632V8.883h-1.632v.822c-.561-.676-1.29-.988-2.131-.988zm4.064.166c.707 1.102 1.507 2.09 2.443 3.077a26.593 26.593 0 0 0-2.443 3.16h2.069a13.603 13.603 0 0 1 1.673-2.183 14.067 14.067 0 0 1 1.632 2.182H24a25.142 25.142 0 0 0-2.432-3.16A23.918 23.918 0 0 0 24 8.883h-2.047a14.65 14.65 0 0 1-1.674 2.11 13.357 13.357 0 0 1-1.674-2.11zm-3.804 1.279c1.018 0 1.84.82 1.84 1.84a1.837 1.837 0 0 1-1.84 1.839c-1.019 0-1.84-.82-1.84-1.84 0-1.018.821-1.84 1.84-1.84zm0 .415c-.78 0-1.414.633-1.414 1.423s.634 1.424 1.413 1.424c.78 0 1.414-.634 1.414-1.424s-.634-1.424-1.414-1.424z", "spotify": "M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"};
@@ -247,7 +253,7 @@
   // Trending films and series with 4K backdrops, refreshed daily by a GitHub Action that holds the TMDB key.
   var BACKDROPS_URL = 'https://raw.githubusercontent.com/ottomansky/tvhome/main/data/backdrops.json';
   var SERVICE = 'http://127.0.0.1:8091';    // service.js, running inside TizenBrew
-  var TIZENBREW = 'ws://127.0.0.1:8081';    // TizenBrew's own service
+  var TV_API = 'http://127.0.0.1:8001/api/v2/applications/';   // the TV's own app launcher
   var TZ = 'Europe/Prague';
   var CITY = { name: 'Praha', lat: 50.0755, lon: 14.4378 };
 
@@ -455,7 +461,7 @@
     t.classList.add('pressed');
     setTimeout(function () { t.classList.remove('pressed'); }, 140);
     showVeil(app, 'Spouštím ' + app.name);
-    openModule(app).then(function (opened) {
+    tvLaunch(app).then(function (opened) {
       return opened || openApp(app);
     }).then(function () {
       setTimeout(hideVeil, 2500);           // the app takes over the screen, the veil goes quietly
@@ -480,36 +486,17 @@
     });
   }
 
-  // TizenBrew modules (like TizenTube): tell TizenBrew to load the module, then go to its page,
-  // the same two steps TizenBrew's own menu does. Resolves false if the module is not there.
-  function openModule(app) {
+  // The TV's own app API, the same one the SmartThings phone app uses. The page cannot read the answer
+  // (no CORS headers), so it sends the request and then checks whether an app took over the screen.
+  function tvLaunch(app) {
     return new Promise(function (resolve) {
-      if (!app.module || !window.WebSocket) return resolve(false);
-      var ws, mod = null, done = false;
-      function finish(ok) {
-        if (done) return;
-        done = true;
-        if (!ok) { try { ws.close(); } catch (e) {} }
-        resolve(ok);
-      }
-      var timer = setTimeout(function () { finish(false); }, 4000);
-      try { ws = new WebSocket(TIZENBREW); } catch (e) { return finish(false); }
-      ws.onerror = function () { clearTimeout(timer); finish(false); };
-      ws.onopen = function () { ws.send(JSON.stringify({ type: 4 })); };        // GetModules
-      ws.onmessage = function (ev) {
-        var msg; try { msg = JSON.parse(ev.data); } catch (e) { return; }
-        if (msg.type === 4) {
-          if (!msg.payload) return setTimeout(function () { ws.send(JSON.stringify({ type: 4 })); }, 500);
-          for (var i = 0; i < msg.payload.length; i++) if (msg.payload[i].fullName === app.module) mod = msg.payload[i];
-          if (!mod || !mod.appPath) { clearTimeout(timer); return finish(false); }
-          ws.send(JSON.stringify({ type: 5, payload: mod }));                 // LaunchModule
-          clearTimeout(timer);
-          finish(true);
-          if (!mod.evaluateScriptOnDocumentStart) setTimeout(function () { location.href = mod.appPath; }, 300);
-        } else if (msg.type === 5 && mod) {
-          location.href = mod.appPath;                                         // TizenBrew is ready for an early script
-        }
-      };
+      if (!app.tv) return resolve(false);
+      try {
+        var x = new XMLHttpRequest();
+        x.open('POST', TV_API + encodeURIComponent(app.tv));
+        x.send();
+      } catch (e) { return resolve(false); }
+      setTimeout(function () { resolve(document.hidden); }, 3000);
     });
   }
 
