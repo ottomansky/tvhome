@@ -41,7 +41,7 @@ Left and Right move between apps, OK opens one, Back closes the launch screen.
 
 ## How it works
 
-- `home.html` is the whole home screen: plain HTML, CSS and JavaScript, no build step.
+- `app.html` is the whole home screen: plain HTML, CSS and JavaScript, no build step. `home.html`, the file TizenBrew opens, is a tiny loader that fetches the newest `app.html` from GitHub (at most 5 minutes old), and the copy that came with the module when GitHub is unreachable.
 - `service.js` runs inside TizenBrew's background service and does what the page cannot. It starts apps through the TV's own app API (`http://127.0.0.1:8001/api/v2/applications/<id>`, the one the SmartThings app uses) and checks that the app is running, falling back to Tizen's app launcher by ID or name. It presses remote keys through the TV's remote-control channel (port 8002), and lists the installed apps for the Down view.
 - Recently used order is kept in the page's local storage on the TV.
 - `data/backdrops.json` is the list of backdrops. A GitHub Action (`.github/workflows/backdrops.yml`) refreshes it every morning from TMDB: trending films and series this week, titles in Czech, only backdrops without text on them, 3840 pixels wide where available. The TMDB key lives in the repository's `TMDB_KEY` secret, never in the code.
@@ -54,15 +54,15 @@ Nothing on the screen stays still for hours: every 3 minutes all text and tiles 
 
 ## Change the apps
 
-Edit the `APPS` list near the top of the script in `home.html` (nine tiles fit one row): name, colors, logo, and what to open (`tv` for the TV's app ID, `key` for a remote key such as `KEY_HDMI2`). `EXTRA` gives apps that only show under Down a look of their own, `PROVIDERS` maps streaming services from the film data to apps. To check an app ID from a computer on the same network: `curl http://<tv-ip>:8001/api/v2/applications/<id>`.
+Edit the `APPS` list near the top of the script in `app.html` (nine tiles fit one row): name, colors, logo, and what to open (`tv` for the TV's app ID, `key` for a remote key such as `KEY_HDMI2`). `EXTRA` gives apps that only show under Down a look of their own, `PROVIDERS` maps streaming services from the film data to apps. To check an app ID from a computer on the same network: `curl http://<tv-ip>:8001/api/v2/applications/<id>`.
 
 ## Updates
 
-TizenBrew loads the module through jsDelivr without a version, so jsDelivr serves the newest commit on `main` but caches files for up to 12 hours and also remembers for a while which commit is newest. After a push, purge `https://purge.jsdelivr.net/gh/ottomansky/tvhome/home.html` (same for `service.js` and `package.json`), repeat until `https://cdn.jsdelivr.net/gh/ottomansky/tvhome/home.html` shows the change, then restart TizenBrew so the service reloads too. If a file stays old for hours (jsDelivr's own origin copy ignores purges), rename it and change `appPath` in `package.json`: a new file name is fetched fresh. That is why the page is `home.html` and not `index.html`. Do not add git tags: with a tag, jsDelivr serves the newest tag instead of `main`. The backdrop list is read straight from GitHub and is fresh every morning.
+Changes to `app.html` reach the TV within about 5 minutes: restart TizenBrew, or open TV Home again. TizenBrew itself loads `home.html`, `package.json` and `service.js` through jsDelivr, which caches GitHub files for up to 12 hours and ignores purges at some of its servers, so changes to those three files are slow. To get one onto the TV at once, add the module pinned to a commit, `ottomansky/tvhome@<commit>`, which jsDelivr serves fresh. Do not add git tags: with a tag, jsDelivr serves the newest tag instead of `main`. The backdrop list is read straight from GitHub and is fresh every morning.
 
 ## Tests
 
-`npm test` runs `service.js` the way TizenBrew does, against a fake TV app API and a fake Tizen launcher, and checks which apps it starts, the fallbacks, the app list filter and that errors never stop the service. `node test/service.test.js --serve` keeps that fake TV running, so `home.html` can be tried in a browser.
+`npm test` runs `service.js` the way TizenBrew does, against a fake TV app API and a fake Tizen launcher, and checks which apps it starts, the fallbacks, the app list filter and that errors never stop the service. `node test/service.test.js --serve` keeps that fake TV running, so `app.html` can be tried in a browser.
 
 ## Credits
 
