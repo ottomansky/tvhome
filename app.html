@@ -320,6 +320,7 @@
   var BACKDROPS_URL = 'https://raw.githubusercontent.com/ottomansky/tvhome/main/data/backdrops.json';
   var SERVICE = 'http://127.0.0.1:8091';    // service.js, running inside TizenBrew
   var TV_API = 'http://127.0.0.1:8001/api/v2/applications/';   // the TV's own app launcher
+  var NATIVE = !!(window.tizen && tizen.application && tizen.application.launch);   // installed as its own .wgt
   var TZ = 'Europe/Prague';
   var CITY = { name: 'Praha', lat: 50.0755, lon: 14.4378 };
 
@@ -609,6 +610,10 @@
       .map(function (x) { return x.a; });
   }
   function loadInstalled() {
+    if (NATIVE) return nativeApps().then(function (list) {
+      var a = userApps(list);
+      if (a.length) installed = a;
+    }, function () {});
     return getJSON(SERVICE + '/apps', 6000).then(function (d) {
       if (d && d.ok && d.apps && d.apps.length) installed = d.apps;
     }, function () {});
@@ -709,6 +714,7 @@
   // TizenBrew starts service.js only when this page opens, so right after start it may need a moment.
   // If the service never answers, send the TV's API the request ourselves (we cannot read its answer).
   function openApp(app, retried) {
+    if (NATIVE) return nativeOpen(app);
     var q = SERVICE + '/open?id=' + encodeURIComponent(app.tv || '') +
       '&ids=' + encodeURIComponent((app.ids || []).join(',')) + '&match=' + encodeURIComponent(app.match || '');
     return getJSON(q, 12000).then(function (d) {
@@ -719,6 +725,7 @@
     });
   }
   function pressKey(key) {
+    if (NATIVE) return remoteKey(key, 0);
     return getJSON(SERVICE + '/key?k=' + encodeURIComponent(key), 40000).then(function (d) {
       if (!d || !d.ok) throw new Error(d && /pairing|unauthorized/.test(d.error) ? 'pairing' : 'failed');
     }, function () { throw new Error('failed'); });
@@ -735,6 +742,87 @@
         x.send();
       } catch (e) { return resolve(false); }
       setTimeout(function () { resolve(document.hidden); }, 3000);
+    });
+  }
+
+  // ===== Installed as its own TV app (.wgt): the TV's tizen API is right here, no TizenBrew service needed =====
+  function nativeApps() {
+    return new Promise(function (resolve, reject) {
+      try {
+        tizen.application.getAppsInfo(function (list) {
+          resolve(list.map(function (a) { return { id: a.id, name: a.name, show: a.show }; }));
+        }, reject);
+      } catch (e) { reject(e); }
+    });
+  }
+  function nativeLaunch(id) {
+    return new Promise(function (resolve, reject) {
+      try { tizen.application.launch(id, function () { resolve(); }, reject); } catch (e) { reject(e); }
+    });
+  }
+  // The store ID first, then the tizen IDs we know, then any installed app whose name matches.
+  function nativeOpen(app) {
+    var ids = [app.tv].concat(app.ids || []).filter(Boolean);
+    function tryId(i) {
+      if (i >= ids.length) return byName();
+      return nativeLaunch(ids[i]).catch(function () { return tryId(i + 1); });
+    }
+    function byName() {
+      var m = String(app.match || app.name || '').toLowerCase();
+      return nativeApps().then(function (list) {
+        for (var i = 0; i < list.length; i++) {
+          if (m && String(list[i].name || '').toLowerCase().indexOf(m) >= 0) return nativeLaunch(list[i].id);
+        }
+        throw new Error('not_installed');
+      });
+    }
+    return tryId(0);
+  }
+  // Apps a person opens: no system parts, helpers or widgets (the same rule as service.js).
+  var HIDDEN = /^(org\.tizen\.|com\.samsung\.|com\.tizen\.|org\.volt\.|com\.wssyncmldm|\w+\.TizenBrew|\w+\.TVHome)/i;
+  function userApps(list) {
+    var seen = {};
+    return list.filter(function (a) {
+      if (!a.name || a.show === false || HIDDEN.test(a.id) || /service|widget|helper/i.test(a.id)) return false;
+      if (seen[a.name]) return false;
+      seen[a.name] = 1;
+      return true;
+    }).map(function (a) { return { id: a.id, name: a.name }; });
+  }
+  // Remote keys (HDMI 1 to 4, Settings) through the TV's remote-control channel. The first time the TV asks
+  // on screen whether to allow "TV Home"; the token it gives is kept so the question does not come again.
+  var REMOTES = ['ws://127.0.0.1:8001', 'wss://127.0.0.1:8002'];
+  function remoteKey(key, i) {
+    if (i >= REMOTES.length) return Promise.reject(new Error('failed'));
+    return new Promise(function (resolve, reject) {
+      var token = '';
+      try { token = localStorage.getItem('tvhome.token') || ''; } catch (e) {}
+      var done = false, ws;
+      function end(err) {
+        if (done) return;
+        done = true; clearTimeout(timer);
+        try { ws.close(); } catch (e) {}
+        err ? reject(err) : resolve();
+      }
+      var timer = setTimeout(function () { end(new Error('pairing')); }, 35000);
+      try {
+        ws = new WebSocket(REMOTES[i] + '/api/v2/channels/samsung.remote.control?name=VFYgSG9tZQ==' + (token ? '&token=' + token : ''));
+      } catch (e) { return end(new Error('next')); }
+      ws.onerror = function () { end(new Error('next')); };
+      ws.onmessage = function (ev) {
+        var m;
+        try { m = JSON.parse(ev.data); } catch (e) { return; }
+        if (m.event === 'ms.channel.connect') {
+          if (m.data && m.data.token) { try { localStorage.setItem('tvhome.token', String(m.data.token)); } catch (e) {} }
+          ws.send(JSON.stringify({ method: 'ms.remote.control',
+            params: { Cmd: 'Click', DataOfCmd: key, Option: 'false', TypeOfRemote: 'SendRemoteKey' } }));
+          setTimeout(function () { end(); }, 300);
+        } else if (m.event === 'ms.channel.unauthorized') end(new Error('next'));
+        else if (m.event === 'ms.channel.timeOut') end(new Error('pairing'));
+      };
+    }).catch(function (err) {
+      if (err.message === 'next') return remoteKey(key, i + 1);
+      throw err;
     });
   }
 

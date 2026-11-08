@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets"
+        id="http://github.com/ottomansky/tvhome" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="TVHome0001.TVHome" package="TVHome0001" required_version="6.0"/>
+    <name>TV Home</name>
+    <description>A calm home screen: trending film backdrops in 4K, clock, weather and your apps.</description>
+    <author href="https://github.com/ottomansky">Maxmilian Ottomansky</author>
+    <icon src="icon.png"/>
+    <content src="home.html"/>
+    <access origin="*" subdomains="true"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.info"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+    <tizen:profile name="tv-samsung"/>
+</widget>

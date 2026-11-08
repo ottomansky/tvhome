@@ -24,6 +24,20 @@ All screenshots are real 3840x2160 captures from Chrome, driven with remote key 
 
 ## Install on the TV
 
+### As its own app (no TizenBrew)
+
+1. On the TV, in Developer Mode, set Host PC IP to your computer's IP and restart the TV.
+2. `python3 scripts/build_wgt.py` builds `dist/tvhome.wgt`.
+3. Install it with [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung):
+   `apps2samsung-cli install dist/tvhome.wgt --tv <TV IP>`. The first install opens a Samsung sign-in
+   to make the signing certificate.
+
+The app starts other apps through the TV's own `tizen.application` API, so it needs no helper service.
+HDMI and Settings use the TV's remote-control channel; the TV asks once whether to allow "TV Home".
+The installed `home.html` still loads the newest `app.html` from GitHub, so changes arrive without reinstalling.
+
+### Through TizenBrew
+
 You need TizenBrew on the TV, with Developer Mode on and its Host PC IP set to `127.0.0.1` (TizenBrew's own requirement).
 
 1. Open TizenBrew and press the GREEN button for the module manager.
