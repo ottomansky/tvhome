@@ -407,7 +407,7 @@
         if (done) return;
         done = true; loading = false; clearTimeout(timer);
         back.onload = back.onerror = null;
-        if (!ok) { back.removeAttribute('src'); return; }
+        if (!ok || mode === 'info') { back.removeAttribute('src'); return; }   // never swap the film under its open info
         back.classList.remove('shown'); void back.offsetWidth;   // restart the slow drift
         back.classList.add('shown');
         if (front >= 0) walls[front].classList.remove('shown');
@@ -591,7 +591,11 @@
     if (installed) {   // drop known apps the TV does not have
       var on = {};
       installed.forEach(function (a) { on[a.id] = 1; });
-      list = list.filter(function (a) { return !a.tv || on[a.tv] || APPS.indexOf(a) >= 0; });
+      installed.forEach(function (a) { on[String(a.name).toLowerCase()] = 1; });
+      list = list.filter(function (a) {   // the TV API and tizen may use different IDs for one app, so a name match counts too
+        var n = a.name.toLowerCase();
+        return !a.tv || on[a.tv] || APPS.indexOf(a) >= 0 || Object.keys(on).some(function (k) { return k.indexOf(n) === 0; });
+      });
     }
     var r = recent();
     return list.map(function (a, i) { return { a: a, i: i, t: r[appKey(a)] || 0 }; })
@@ -653,7 +657,7 @@
   }
 
   // ===== Launching =====
-  var launching = false;
+  var launching = false, launchSeq = 0;   // each launch has a number; answers and timers of an older one are ignored
   function showVeil(app, text) {
     $('veil-tile').innerHTML = '';
     $('veil-tile').appendChild(makeTile(app));
@@ -661,6 +665,7 @@
     $('veil').classList.add('shown');
   }
   function hideVeil() {
+    launchSeq++;
     $('veil').classList.remove('shown');
     document.querySelector('.dots').style.display = '';
     launching = false;
@@ -668,24 +673,29 @@
   function launch(app, tile) {
     if (launching) return;
     launching = true;
+    var seq = ++launchSeq;
+    function stale() { return seq !== launchSeq; }
     if (tile) {
       tile.classList.add('pressed');
       setTimeout(function () { tile.classList.remove('pressed'); }, 140);
     }
     showVeil(app, app.key ? 'Přepínám na ' + (app.title || app.name) : 'Spouštím ' + app.name);
-    markUsed(app);
     (app.key ? pressKey(app.key) : openApp(app)).then(function () {
+      markUsed(app);
+      if (stale()) return;
       setTimeout(function () {
+        if (stale()) return;
         hideVeil();
         if (mode === 'all') renderGrid();
         if (mode === 'info') closeInfo();
       }, 2500);   // the app takes over the screen, the veil goes quietly
     }, function (err) {
+      if (stale()) return;
       document.querySelector('.dots').style.display = 'none';
       $('veil-text').textContent = err.message === 'not_installed' ? app.name + ' na televizi není nainstalovaný'
         : err.message === 'pairing' ? 'Na televizi povolte TV Home a zkuste to znovu'
         : 'Aplikace jde spustit jen na televizi';
-      setTimeout(hideVeil, 3500);
+      setTimeout(function () { if (!stale()) hideVeil(); }, 3500);
     });
   }
 

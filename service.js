@@ -19,7 +19,7 @@ var url = require('url');
 var PORT = 8091;
 var TV_API = { host: '127.0.0.1', port: 8001, path: '/api/v2/applications/' };
 var REMOTE = 'wss://127.0.0.1:8002/api/v2/channels/samsung.remote.control?name=VFYgSG9tZQ==';   // name: base64 of "TV Home"
-var CHECKS = 8, CHECK_MS = 600;   // look up to ~5 s for the app to come to the front
+var DEADLINE_MS = 7000, CHECK_MS = 600;   // look up to 7 s for the app to come to the front (the page waits 12 s)
 
 function send(res, code, body) {
   res.writeHead(code, {
@@ -35,33 +35,40 @@ function tvApi(method, id, done) {
   var finished = false;
   function end(err, status, json) { if (!finished) { finished = true; done(err, status, json); } }
   try {
+    var timer = setTimeout(function () { try { req.abort(); } catch (e) {} end(new Error('timeout')); }, 3000);
     var req = http.request({ host: TV_API.host, port: TV_API.port, method: method,
                              path: TV_API.path + encodeURIComponent(id) }, function (r) {
       var body = '';
       r.on('data', function (c) { body += c; });
+      r.on('aborted', function () { clearTimeout(timer); end(new Error('aborted')); });
+      r.on('error', function (e) { clearTimeout(timer); end(e); });
       r.on('end', function () {
+        clearTimeout(timer);
         var json = null;
         try { json = JSON.parse(body); } catch (e) {}
         end(null, r.statusCode, json);
       });
     });
-    req.on('error', function (e) { end(e); });
-    req.setTimeout(4000, function () { req.abort(); end(new Error('timeout')); });
+    req.on('error', function (e) { clearTimeout(timer); end(e); });
     req.end();
   } catch (e) { end(e); }
 }
 
+// Answers { ok, visible, running }, or { fallback: true } when only the tizen launcher can still help:
+// the API is not there (connection refused), does not know the ID (404), or the app never even started.
+// A POST that merely timed out is not retried another way: the TV may still be starting the app.
 function openByTvApi(id, done) {
+  var deadline = Date.now() + DEADLINE_MS;
   tvApi('POST', id, function (err, status) {
-    if (err) return done(err);
-    if (status === 404) return done(null, { ok: false, error: 'not_installed' });
-    if (status !== 200) return done(new Error('tv api ' + status));
-    var n = 0;
+    if (err) return done(null, err.code === 'ECONNREFUSED' ? { fallback: true } : { ok: false, error: 'timeout' });
+    if (status === 404) return done(null, { fallback: true });
+    if (status !== 200) return done(null, { fallback: true });
     (function check() {
       tvApi('GET', id, function (e, s, app) {
         if (!e && app && app.visible) return done(null, { ok: true, id: id, name: app.name, visible: true, via: 'tv' });
-        if (++n >= CHECKS) return done(null, { ok: true, id: id, name: app && app.name, visible: false, running: !!(app && app.running), via: 'tv' });
-        setTimeout(check, CHECK_MS);
+        if (Date.now() + CHECK_MS < deadline) return setTimeout(check, CHECK_MS);
+        if (app && app.running) return done(null, { ok: true, id: id, name: app.name, visible: false, running: true, via: 'tv' });
+        done(null, { fallback: true });
       });
     })();
   });
@@ -71,7 +78,9 @@ function openByTvApi(id, done) {
 function installedApps(done) {
   try {
     tizen.application.getAppsInfo(function (list) {
-      try { done(null, list.map(function (a) { return { id: a.id, name: a.name, show: a.show }; })); } catch (e) { done(e); }
+      var apps;
+      try { apps = list.map(function (a) { return { id: a.id, name: a.name, show: a.show }; }); } catch (e) { return done(e); }
+      done(null, apps);
     }, function (err) { done(err); });
   } catch (e) { done(e); }
 }
@@ -96,11 +105,13 @@ function openByTizen(ids, match, done) {
     if (err) return done(err);
     var app = pick(apps, ids, match);
     if (!app) return done(null, { ok: false, error: 'not_installed' });
+    var called = false;
+    function once(e, body) { if (!called) { called = true; done(e, body); } }
     try {
       tizen.application.launch(app.id, function () {
-        done(null, { ok: true, id: app.id, name: app.name, via: 'tizen' });
-      }, function (e) { done(e); });
-    } catch (e) { done(e); }
+        once(null, { ok: true, id: app.id, name: app.name, via: 'tizen' });
+      }, function (e) { once(e); });
+    } catch (e) { once(e); }
   });
 }
 
@@ -129,13 +140,16 @@ function wsLib() {
   return null;
 }
 
+var keyBusy = false;   // one connection at a time, so the TV never shows two pairing questions
 function pressKey(key, done) {
   var WS = wsLib();
   if (!WS) return done(new Error('no_websocket'));
+  if (keyBusy) return done(new Error('busy'));
+  keyBusy = true;
   var finished = false, ws;
   function end(err, body) {
     if (finished) return;
-    finished = true; clearTimeout(timer);
+    finished = true; keyBusy = false; clearTimeout(timer);
     try { ws.close(); } catch (e) {}
     done(err, body);
   }
@@ -145,19 +159,22 @@ function pressKey(key, done) {
   } catch (e) { return end(e); }
   ws.on('error', function (e) { end(e); });
   ws.on('message', function (raw) {
-    var m;
-    try { m = JSON.parse(String(raw)); } catch (e) { return; }
-    if (m.event === 'ms.channel.connect') {
-      if (m.data && m.data.token && m.data.token !== token) {
-        token = String(m.data.token);
-        try { require('fs').writeFileSync(TOKEN_FILE, token); } catch (e) {}
+    if (finished) return;
+    try {   // an exception inside a ws event would stop TizenBrew's whole service
+      var m = JSON.parse(String(raw));
+      if (!m) return;
+      if (m.event === 'ms.channel.connect') {
+        if (m.data && m.data.token && m.data.token !== token) {
+          token = String(m.data.token);
+          try { require('fs').writeFileSync(TOKEN_FILE, token); } catch (e) { console.log('tvhome: token not saved, ' + e.message); }
+        }
+        ws.send(JSON.stringify({ method: 'ms.remote.control',
+          params: { Cmd: 'Click', DataOfCmd: key, Option: 'false', TypeOfRemote: 'SendRemoteKey' } }));
+        setTimeout(function () { end(null, { ok: true, key: key }); }, 300);
+      } else if (m.event === 'ms.channel.unauthorized' || m.event === 'ms.channel.timeOut') {
+        end(new Error(m.event === 'ms.channel.timeOut' ? 'pairing_timeout' : 'unauthorized'));
       }
-      ws.send(JSON.stringify({ method: 'ms.remote.control',
-        params: { Cmd: 'Click', DataOfCmd: key, Option: 'false', TypeOfRemote: 'SendRemoteKey' } }));
-      setTimeout(function () { end(null, { ok: true, key: key }); }, 300);
-    } else if (m.event === 'ms.channel.unauthorized' || m.event === 'ms.channel.timeOut') {
-      end(new Error(m.event === 'ms.channel.timeOut' ? 'pairing_timeout' : 'unauthorized'));
-    }
+    } catch (e) { end(e); }
   });
 }
 
@@ -190,8 +207,8 @@ function route(req, res) {
     var fallback = function () { openByTizen(ids.length ? ids : (id ? [id] : []), match, reply(res)); };
     if (!id) return fallback();
     return openByTvApi(id, function (err, body) {
-      if (!err && body.ok) return send(res, 200, body);
-      fallback();   // the TV's API is off or does not know the ID: try the tizen launcher
+      if (body.fallback) return fallback();   // the TV's API is off or does not know the ID: try the tizen launcher
+      send(res, body.ok ? 200 : 504, body);
     });
   }
 

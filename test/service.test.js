@@ -78,7 +78,7 @@ tvApi.listen(8001, '127.0.0.1', function () {
       check('Jellyfin opens through the TV API and is reported in front', r.status === 200 && r.json.via === 'tv' && r.json.visible === true && r.cors === '*');
       return get('/open?id=lazy.App');
     }).then(function (r) {
-      check('An app that never comes to the front is reported as not visible', r.json.ok && r.json.visible === false);
+      check('An app that never starts falls back to tizen, which does not have it', r.status === 404 && r.json.error === 'not_installed');
       return get('/open?id=111299001912&ids=111299001912&match=youtube');
     }).then(function (r) {
       check('Unknown TV ID falls back to the tizen launcher by name', r.json.ok && r.json.via === 'tizen' && r.json.id === '9Ur5IzDKqV.TizenYouTube');
