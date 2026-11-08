@@ -296,6 +296,9 @@
   ];
   // Apps that live only in "All apps" (Down), with a look of their own. Anything else installed gets a plain tile.
   var EXTRA = [
+    { name: 'HDMI 2', icon: 'hdmi', glass: true, fg: '#fff', key: 'KEY_HDMI2' },
+    { name: 'HDMI 3', icon: 'hdmi', glass: true, fg: '#fff', key: 'KEY_HDMI3' },
+    { name: 'HDMI 4', icon: 'hdmi', glass: true, fg: '#fff', key: 'KEY_HDMI4' },
     { name: 'Prima+',    icon: 'word',     bg: 'linear-gradient(160deg,#e3262f,#8a0b12)', fg: '#fff', tv: 'sLZ6zpyDlX.iPrimaTizen' },
     { name: 'Internet',  icon: 'globe',    glass: true, fg: '#fff', tv: '3202010022079' },
     { name: 'Apple TV',  icon: 'word',     bg: 'linear-gradient(160deg,#2b2b2b,#000)', fg: '#fff', tv: '3201807016597' },
@@ -413,6 +416,7 @@
         if (front >= 0) walls[front].classList.remove('shown');
         front = front === 0 ? 1 : 0;
         lastSrc = photo.src;
+        try { localStorage.setItem('tvhome.photo', JSON.stringify(photo)); } catch (e) {}   // shown first at the next start
         shownFilm = photo.film || null;
         $('credit').innerHTML = photo.title ? '<b></b><span></span>' : '';
         if (photo.title) {
@@ -425,6 +429,8 @@
       back.src = photo.src;
     }, function () { loading = false; });
   }
+  // Start with the last still: the TV has it cached, so it shows at once instead of after the film list loads.
+  try { var last = JSON.parse(localStorage.getItem('tvhome.photo')); if (last && last.src) queue.push(last); } catch (e) {}
   nextWallpaper();
   setInterval(nextWallpaper, ROTATE_MS);
   window.addEventListener('online', nextWallpaper);

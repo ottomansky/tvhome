@@ -10,18 +10,29 @@
   // TizenBrew fetches this file through jsDelivr, which can keep an old copy for hours.
   // So this file stays tiny and never changes: it loads the newest app.html straight from GitHub
   // (cached for 5 minutes at most), and the copy that came with the module if GitHub cannot be reached.
+  // A copy kept in local storage opens at once; the fresh one is fetched meanwhile and used from the next start.
   (function () {
+    var KEY = 'tvhome.app';
     var SOURCES = [
       'https://raw.githubusercontent.com/ottomansky/tvhome/main/app.html?t=' + Math.floor(Date.now() / 300000),
       'app.html'
     ];
+    var cached = null, shown = false;
+    try { cached = localStorage.getItem(KEY); } catch (e) {}
+    function show(html) {
+      if (shown) return;
+      shown = true;
+      document.open(); document.write(html); document.close();
+    }
+    if (cached) show(cached);
     function load(i) {
       if (i >= SOURCES.length) return;
       var x = new XMLHttpRequest();
       x.open('GET', SOURCES[i]); x.timeout = 8000;
       x.onload = function () {
         if (x.status !== 200 || x.responseText.indexOf('<html') < 0) return load(i + 1);
-        document.open(); document.write(x.responseText); document.close();
+        try { localStorage.setItem(KEY, x.responseText); } catch (e) {}
+        show(x.responseText);
       };
       x.onerror = x.ontimeout = function () { load(i + 1); };
       x.send();

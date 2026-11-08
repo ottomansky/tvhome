@@ -18,6 +18,8 @@ Made for a 65 inch Samsung OLED (2024, Tizen 8.0) and laid out for 4K: everythin
 | --- | --- |
 | ![Ambient mode](screenshots/ambient.png) | ![Offline](screenshots/offline.png) |
 
+TV Home opens from a copy stored on the TV and shows the last film still at once (about 0.1 s in Chrome), then picks up a newer version from GitHub for the next start.
+
 All screenshots are real 3840x2160 captures from Chrome, driven with remote key events, against a stand-in for the TV that lists the apps this TV reports.
 
 ## Install on the TV
@@ -37,7 +39,7 @@ Left and Right move between apps, OK opens one, Back closes the launch screen.
 
 - **Up** opens the film info: title, year, length, genres, TMDB rating, a short synopsis, whether it is in Czech cinemas or gets a new episode, and where it streams in the Czech Republic. If it streams on an app you have, OK opens that app. Down or Back closes it.
 - **Down** opens all apps installed on the TV, the most recently opened first. Arrows move, OK opens, Up from the first row or Back goes back.
-- The last two tiles are **HDMI 1** (the Xbox) and **Settings**. They press the TV's own HDMI 1 and Menu keys. The first time, the TV asks whether to allow "TV Home"; press Allow once. After 90 s without input the app row fades out and only the picture and time stay. After 20 minutes the whole screen dims. Any button wakes it, and that first press does nothing else.
+- The last two tiles are **HDMI 1** (the Xbox) and **Settings**. HDMI 2, 3 and 4 are the first tiles on the second row under Down, two presses away. They press the TV's own HDMI and Menu keys. The first time, the TV asks whether to allow "TV Home"; press Allow once. After 90 s without input the app row fades out and only the picture and time stay. After 20 minutes the whole screen dims. Any button wakes it, and that first press does nothing else.
 
 ## How it works
 
