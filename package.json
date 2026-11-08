@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A calm home screen for Samsung TVs: trending film backdrops in 4K, clock, weather and your apps.",
   "packageType": "app",
-  "appPath": "index.html",
+  "appPath": "home.html",
   "serviceFile": "service.js",
   "keys": [
     "MediaPlayPause",
