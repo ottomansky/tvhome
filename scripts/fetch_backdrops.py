@@ -50,8 +50,64 @@ def best_backdrop(key, kind, item_id, min_width):
     return wide[0]
 
 
+MONTHS = ["ledna", "února", "března", "dubna", "května", "června",
+          "července", "srpna", "září", "října", "listopadu", "prosince"]
+
+
+def cz_date(iso):
+    y, m, d = iso[:10].split("-")
+    return "%d. %s" % (int(d), MONTHS[int(m) - 1])
+
+
+def cinema_lists(key):
+    """Film IDs playing in Czech cinemas now, and the Czech release date of those coming soon."""
+    now, soon = set(), {}
+    for page in (1, 2, 3):
+        for m in get(key, "/movie/now_playing", region="CZ", page=page).get("results", []):
+            now.add(m["id"])
+        for m in get(key, "/movie/upcoming", region="CZ", page=page).get("results", []):
+            if m.get("release_date"):
+                soon[m["id"]] = m["release_date"]
+    return now, soon
+
+
+def details(key, kind, item_id, now, soon):
+    """Short facts for the info panel: synopsis, genres, length, rating, cinema status, where to stream."""
+    d = get(key, "/%s/%d" % (kind, item_id), language="cs-CZ", append_to_response="watch/providers")
+    overview = (d.get("overview") or "").strip()
+    if not overview:
+        overview = (get(key, "/%s/%d" % (kind, item_id), language="en-US").get("overview") or "").strip()
+    info = {
+        "overview": overview,
+        "genres": [g["name"] for g in d.get("genres", [])][:3],
+        "providers": [p["provider_name"] for p in
+                      d.get("watch/providers", {}).get("results", {}).get("CZ", {}).get("flatrate", [])][:4],
+    }
+    if d.get("vote_count", 0) >= 50:
+        info["rating"] = round(d.get("vote_average", 0), 1)
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if kind == "movie":
+        if d.get("runtime"):
+            info["length"] = "%d h %d min" % divmod(d["runtime"], 60) if d["runtime"] >= 60 else "%d min" % d["runtime"]
+        if item_id in now:
+            info["status"] = "V kinech"
+        elif soon.get(item_id, "") > today:
+            info["status"] = "V kinech od " + cz_date(soon[item_id])
+    else:
+        n = d.get("number_of_seasons")
+        if n:
+            info["length"] = "%d %s" % (n, "řada" if n == 1 else "řady" if n < 5 else "řad")
+        nxt = (d.get("next_episode_to_air") or {}).get("air_date")
+        if nxt and nxt >= today:
+            info["status"] = "Nový díl " + cz_date(nxt)
+    if not info.get("status") and info["providers"]:
+        info["status"] = "Na " + info["providers"][0]
+    return info
+
+
 def main():
     key = read_key()
+    now, soon = cinema_lists(key)
     candidates = []
     for page in (1, 2, 3):
         for item in get(key, "/trending/all/week", language="cs-CZ", page=page).get("results", []):
@@ -70,21 +126,26 @@ def main():
                 continue
             seen.add(c["id"])
             date = c.get("release_date") or c.get("first_air_date") or ""
-            items.append({
+            item = {
                 "title": c.get("title") or c.get("name"),
                 "year": date[:4],
                 "kind": c["media_type"],
                 "src": IMG + b["file_path"],
                 "width": b["width"],
                 "height": b["height"],
-            })
+            }
+            try:
+                item.update(details(key, c["media_type"], c["id"], now, soon))
+            except Exception as e:          # a missing detail never costs the backdrop
+                print("no details for %s: %s" % (item["title"], e))
+            items.append(item)
         if len(items) >= WANT:
             break
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump({
-            "source": "TMDB trending this week. This product uses the TMDB API but is not endorsed or certified by TMDB.",
+            "source": "TMDB trending this week, streaming data by JustWatch. This product uses the TMDB API but is not endorsed or certified by TMDB.",
             "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
             "items": items,
         }, f, ensure_ascii=False, indent=1)
