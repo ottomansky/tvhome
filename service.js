@@ -115,7 +115,7 @@ function openByTizen(ids, match, done) {
 }
 
 // Apps a person opens: hide system parts, helpers and widgets. Samsung marks user-facing apps with show = true.
-var HIDDEN = /^(org\.tizen\.|com\.samsung\.|com\.tizen\.|org\.volt\.|com\.wssyncmldm|tizenbrew|xvvl3S1TT1\.TizenBrew)/i;
+var HIDDEN = /^(org\.tizen\.|com\.samsung\.|com\.tizen\.|org\.volt\.|com\.wssyncmldm|\w+\.TizenBrew)/i;
 function userApps(apps) {
   var seen = {};
   return apps.filter(function (a) {

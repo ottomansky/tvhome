@@ -1,20 +1,24 @@
 # TV Home
 
-A calm home screen for Samsung TVs, built as a [TizenBrew](https://github.com/reisxd/TizenBrew) module. A full-screen 4K still from a film or series trending this week, the time and date in Czech (Prague time), today's weather, and one row of apps you open with the remote.
+A calm home screen for Samsung TVs, built as a [TizenBrew](https://github.com/reisxd/TizenBrew) module. A full-screen 4K still from a film or series trending this week, the time and date in Czech (Prague time), today's weather, and one row of apps you open with the remote. Up tells you about the film on screen, Down shows every app on the TV.
 
 Made for a 65 inch Samsung OLED (2024, Tizen 8.0) and laid out for 4K: everything is sized relative to the screen width, so it looks the same on a 1080p set, only less sharp.
 
 ![Home screen](screenshots/home.png)
 
-| Focus moved two tiles right | Opening an app |
+| Up: what the film is, and OK plays it where it streams | Down: every app, the last one used first |
 | --- | --- |
-| ![Focus on Netflix](screenshots/focus.png) | ![Launch screen](screenshots/launch.png) |
+| ![Film info](screenshots/info.png) | ![All apps](screenshots/all.png) |
+
+| Opening an app | HDMI 1 for the Xbox and Settings at the end of the row |
+| --- | --- |
+| ![Launch screen](screenshots/launch.png) | ![HDMI tile](screenshots/hdmi.png) |
 
 | Ambient mode after 90 s without input | No internet: only the gradient, nothing broken |
 | --- | --- |
 | ![Ambient mode](screenshots/ambient.png) | ![Offline](screenshots/offline.png) |
 
-All screenshots are real 3840x2160 captures from Chrome. Until the TMDB list is generated, the page uses its backup photos (Bing photo of the day), which is what these show.
+All screenshots are real 3840x2160 captures from Chrome, driven with remote key events, against a stand-in for the TV that lists the apps this TV reports.
 
 ## Install on the TV
 
@@ -29,13 +33,17 @@ To get back to TizenBrew's own menu while autolaunch is on, hold Up on the remot
 
 ## Remote
 
-Left and Right move between apps, OK opens one, Back closes the launch screen. After 90 s without input the app row fades out and only the picture and time stay. After 20 minutes the whole screen dims. Any button wakes it, and that first press does nothing else.
+Left and Right move between apps, OK opens one, Back closes the launch screen.
+
+- **Up** opens the film info: title, year, length, genres, TMDB rating, a short synopsis, whether it is in Czech cinemas or gets a new episode, and where it streams in the Czech Republic. If it streams on an app you have, OK opens that app. Down or Back closes it.
+- **Down** opens all apps installed on the TV, the most recently opened first. Arrows move, OK opens, Up from the first row or Back goes back.
+- The last two tiles are **HDMI 1** (the Xbox) and **Settings**. They press the TV's own HDMI 1 and Menu keys. The first time, the TV asks whether to allow "TV Home"; press Allow once. After 90 s without input the app row fades out and only the picture and time stay. After 20 minutes the whole screen dims. Any button wakes it, and that first press does nothing else.
 
 ## How it works
 
 - `index.html` is the whole home screen: plain HTML, CSS and JavaScript, no build step.
-- `service.js` runs inside TizenBrew's background service. Pages opened by TizenBrew cannot use the TV's app launcher, so the page asks this service on `http://127.0.0.1:8091` to start Netflix, Spotify and the rest. It looks the app up among the apps installed on your TV (by the IDs in `index.html`, then by name), because Samsung app IDs differ between TV years.
-- The YouTube tile opens **TizenTube** (YouTube without ads) when that module is in TizenBrew, and the normal YouTube app otherwise. The Jellyfin tile does the same with the `@glenlowland/jellyfin-tizen` module.
+- `service.js` runs inside TizenBrew's background service and does what the page cannot. It starts apps through the TV's own app API (`http://127.0.0.1:8001/api/v2/applications/<id>`, the one the SmartThings app uses) and checks that the app is running, falling back to Tizen's app launcher by ID or name. It presses remote keys through the TV's remote-control channel (port 8002), and lists the installed apps for the Down view.
+- Recently used order is kept in the page's local storage on the TV.
 - `data/backdrops.json` is the list of backdrops. A GitHub Action (`.github/workflows/backdrops.yml`) refreshes it every morning from TMDB: trending films and series this week, titles in Czech, only backdrops without text on them, 3840 pixels wide where available. The TMDB key lives in the repository's `TMDB_KEY` secret, never in the code.
 - Backups: if the list cannot load, Bing photos of the day (via Peapix, no key). If nothing loads, a dark gradient.
 - Weather comes from [Open-Meteo](https://open-meteo.com), free and without a key.
@@ -46,15 +54,15 @@ Nothing on the screen stays still for hours: every 3 minutes all text and tiles 
 
 ## Change the apps
 
-Edit the `APPS` list near the top of the script in `index.html`: name, colors, logo, and what to open (`module`, `ids`, `match`). To see the IDs of the apps on your TV, open `http://127.0.0.1:8091/apps` from any TizenBrew module page, or check the service's answer in the TizenBrew debugger.
+Edit the `APPS` list near the top of the script in `index.html` (nine tiles fit one row): name, colors, logo, and what to open (`tv` for the TV's app ID, `key` for a remote key such as `KEY_HDMI2`). `EXTRA` gives apps that only show under Down a look of their own, `PROVIDERS` maps streaming services from the film data to apps. To check an app ID from a computer on the same network: `curl http://<tv-ip>:8001/api/v2/applications/<id>`.
 
 ## Updates
 
-TizenBrew loads the module through jsDelivr, which caches GitHub files for up to about 12 hours, so a change reaches the TV the next day, or right away after a cache purge at `https://purge.jsdelivr.net/gh/ottomansky/tvhome/index.html` (same for `service.js` and `package.json`). The backdrop list is read straight from GitHub and is fresh every morning.
+TizenBrew loads the module through jsDelivr without a version, so jsDelivr serves the newest commit on `main` but caches files for up to 12 hours and also remembers for a while which commit is newest. After a push, purge `https://purge.jsdelivr.net/gh/ottomansky/tvhome/index.html` (same for `service.js`), repeat until `https://cdn.jsdelivr.net/gh/ottomansky/tvhome/index.html` shows the change, then restart TizenBrew so the service reloads too. Do not add git tags: with a tag, jsDelivr serves the newest tag instead of `main`. The backdrop list is read straight from GitHub and is fresh every morning.
 
 ## Tests
 
-`npm test` runs `service.js` the way TizenBrew does, against a fake TV, and checks which apps it starts.
+`npm test` runs `service.js` the way TizenBrew does, against a fake TV app API and a fake Tizen launcher, and checks which apps it starts, the fallbacks, the app list filter and that errors never stop the service. `node test/service.test.js --serve` keeps that fake TV running, so `index.html` can be tried in a browser.
 
 ## Credits
 

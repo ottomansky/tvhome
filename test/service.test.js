@@ -42,6 +42,14 @@ var installed = [
   { id: 'com.samsung.tv.store', name: 'Apps', show: true },
   { id: 'abc.HiddenHelper', name: 'Helper', show: false }
 ];
+// For --serve (screenshots): the apps this TV reported through its app API on 2026-11-08.
+if (process.argv.indexOf('--serve') >= 0) installed = [
+  ['xvvl3S1TT1.TizenTubeStandalone', 'TizenTube'], ['rTn6ClEurC.Jellyfin', 'Jellyfin'], ['3201907018807', 'Netflix'],
+  ['5b8c3eb16b.BeamCTVDev', 'HBO Max'], ['j7L028mExx.ivysilaniTest', 'iVysílání ČT'], ['JIFtSZfRwy.voyoTizenCZ', 'Oneplay'],
+  ['sLZ6zpyDlX.iPrimaTizen', 'Prima+'], ['rJeHak5zRg.Spotify', 'Spotify - Music and Podcasts'], ['3202010022079', 'Internet'],
+  ['3201807016597', 'Apple TV'], ['3202203026841', 'Twitch'], ['xvvl3S1bvH.TizenBrewStandalone', 'TizenBrew']
+].map(function (a) { return { id: a[0], name: a[1], show: true }; });
+
 var tizen = {
   application: {
     getAppsInfo: function (ok) { setTimeout(function () { ok(installed); }, 5); },
