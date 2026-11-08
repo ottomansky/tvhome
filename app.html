@@ -219,6 +219,17 @@
   body.ambient .scrim { opacity: 0.55; }
   body.ambient .clock { transform: translateY(17rem) scale(0.8); }
 
+  /* ---------- On the TV: the same look, cheaper to draw. Its graphics chip is far slower than a computer's,
+     and blurring the photo behind a tile while the photo slowly zooms has to be redone every frame. ---------- */
+  html.tv .wall { will-change: opacity; }
+  html.tv .wall.shown { animation: none; }
+  html.tv .tile.glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(62,68,82,0.82); }
+  html.tv .veil { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(8,10,16,0.88); }
+  html.tv .all { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(8,10,16,0.92); }
+  html.tv .tile { transition: transform 0.22s var(--ease); }
+  html.tv .tile::before, html.tv .tile::after { transition: none; }
+  html.tv .tile.focused { box-shadow: 0 0 0 0.1875rem rgba(255,255,255,0.95), 0 1.25rem 2.5rem rgba(0,0,0,0.5); }
+
   @media (prefers-reduced-motion: reduce) {
     :root { --fade: 0.01s; }
     .wall.shown { animation: none; }
@@ -321,6 +332,7 @@
   var SERVICE = 'http://127.0.0.1:8091';    // service.js, running inside TizenBrew
   var TV_API = 'http://127.0.0.1:8001/api/v2/applications/';   // the TV's own app launcher
   var NATIVE = !!(window.tizen && tizen.application && tizen.application.launch);   // installed as its own .wgt
+  if (/Tizen|SMART-TV/.test(navigator.userAgent)) document.documentElement.classList.add('tv');   // lighter effects on the TV
   var TZ = 'Europe/Prague';
   var CITY = { name: 'Praha', lat: 50.0755, lon: 14.4378 };
 
@@ -425,7 +437,10 @@
           $('credit').lastChild.textContent = photo.by || '';
         }
       }
-      back.onload = function () { finish(true); };
+      back.onload = function () {   // decode the big photo before it fades in, so the swap does not stall a frame
+        if (back.decode) back.decode().then(function () { finish(true); }, function () { finish(true); });
+        else finish(true);
+      };
       back.onerror = function () { finish(false); };
       back.src = photo.src;
     }, function () { loading = false; });
