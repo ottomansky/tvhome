@@ -1,0 +1,246 @@
+{
+ "source": "TMDB trending this week. This product uses the TMDB API but is not endorsed or certified by TMDB.",
+ "updated": "2026-11-08T09:16Z",
+ "items": [
+  {
+   "title": "Odyssea",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/iDiTY1wA35YWzTmXLTtqaxtN6tc.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Resident Evil",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/3icyRAqgakNcQn6aDVz9libFmBA.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "V srdci divočiny",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/kpqsljPQtWqPKJBTAEtoXtQZ9Ko.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Godzilla Minus Zero",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/oqrYIDH4tvfEzPe1yqT4jzmAWHQ.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Primetime",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/sEsMwSDUWGIx9EfNxzM6KzVSsSQ.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Případně láska",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/k0BY5D4Ya6NHhsvNYMmaabpvUtS.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Znovu vdaná císařovna",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/1ptukf8gx19U1HcBv3aRzzlXuyJ.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Mangusta",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/iRIhPqqoUHiFBxn8oYf3gCQnaKk.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Černá holubice",
+   "year": "2024",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/mH2ekoZOwbOg51tjF4Z3f4Qwfq2.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Rámájana: Zrození legendy",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/6kViBlzPbDrE58dqEtwNF2DWqWZ.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "VisionQuest",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/58v1KFe3rxvHrYM1hLH5ScpwqNR.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Pekelná práce",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/iW49eAra4WupwgRBReLBKrpX0dC.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Země gangů",
+   "year": "2025",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/h0OC7ouop8YLwbAVfS3UUE2Lw4T.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Pravda, nebo lež",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/cKetrF2dAnQ0AMV5i4BMOs41I5P.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Dexter: Vzkříšení",
+   "year": "2025",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/vcpj6rRDS93ImHCLPY8bwBuFGjR.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Lupin",
+   "year": "2021",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/jgAZYiuRV37pCxmhx8NTdhE36RL.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Clayface",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/xSDoxv4pHvs4xZjvTb0Iqg1A6ro.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Největší borec",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/b57tPAE2rpUoNpa63o7U2sFvIZs.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Wildwood: Tajemství zakázaného lesa",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/7S9zJTVtK3dvhChTO1MDVu4bmBu.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Apokalypsa Z: Nový svět",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/o3XwuDUj0n8qnK91p6q8LKfr6rj.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Divoký kůň Devítka",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/3uLA0ujne91bkzFStZICCYeqhnt.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Vzhlížet ke hvězdám",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/yhCHnkidQdR3lksbdyFxduRXFPK.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Avengers: Doomsday",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/rObL4of4eFA8yWaN9pRFo9aOVNi.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Posedlost",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/5lTZyuBTNOfawsfPT8Q0cIg6qAF.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Campus Drivers",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/yQHskBQhYsnxcoRsYHESSOUaRja.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Ústav",
+   "year": "2025",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/9LALiE3I9dInFmMlI1BvzlhFMmP.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "V temnotách",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/DCSa6Fd3NN075JOqcJqO3VU6fM.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Spider-Man: Zbrusu nový den",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/subj7knTn4DeS6KS7qI66EQKe9i.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Kocour v klobouku",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/uiR8T1cuzmaOJM9ZuAYOMXNL8rL.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Psí Vánoce",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/6OOiqbY4Di0I6dNw0fyOBIxzK5k.jpg",
+   "width": 3840,
+   "height": 2160
+  }
+ ]
+}
