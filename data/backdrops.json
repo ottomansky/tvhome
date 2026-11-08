@@ -1,6 +1,6 @@
 {
  "source": "TMDB trending this week. This product uses the TMDB API but is not endorsed or certified by TMDB.",
- "updated": "2026-11-08T09:16Z",
+ "updated": "2026-11-08T11:18Z",
  "items": [
   {
    "title": "Odyssea",
@@ -54,7 +54,7 @@
    "title": "Znovu vdaná císařovna",
    "year": "2026",
    "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/1ptukf8gx19U1HcBv3aRzzlXuyJ.jpg",
+   "src": "https://image.tmdb.org/t/p/original/fNcpHmuZLKoyhNMBEzdqzX8iIvg.jpg",
    "width": 3840,
    "height": 2160
   },
@@ -83,22 +83,6 @@
    "height": 2160
   },
   {
-   "title": "VisionQuest",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/58v1KFe3rxvHrYM1hLH5ScpwqNR.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
-   "title": "Pekelná práce",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/iW49eAra4WupwgRBReLBKrpX0dC.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
    "title": "Země gangů",
    "year": "2025",
    "kind": "tv",
@@ -107,10 +91,34 @@
    "height": 2160
   },
   {
+   "title": "VisionQuest",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/58v1KFe3rxvHrYM1hLH5ScpwqNR.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Ústav",
+   "year": "2025",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/9LALiE3I9dInFmMlI1BvzlhFMmP.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
    "title": "Pravda, nebo lež",
    "year": "2026",
    "kind": "movie",
    "src": "https://image.tmdb.org/t/p/original/cKetrF2dAnQ0AMV5i4BMOs41I5P.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Pekelná práce",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/iW49eAra4WupwgRBReLBKrpX0dC.jpg",
    "width": 3840,
    "height": 2160
   },
@@ -139,18 +147,10 @@
    "height": 2160
   },
   {
-   "title": "Největší borec",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/b57tPAE2rpUoNpa63o7U2sFvIZs.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
-   "title": "Wildwood: Tajemství zakázaného lesa",
+   "title": "Vzhlížet ke hvězdám",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/7S9zJTVtK3dvhChTO1MDVu4bmBu.jpg",
+   "src": "https://image.tmdb.org/t/p/original/yhCHnkidQdR3lksbdyFxduRXFPK.jpg",
    "width": 3840,
    "height": 2160
   },
@@ -171,42 +171,10 @@
    "height": 2160
   },
   {
-   "title": "Vzhlížet ke hvězdám",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/yhCHnkidQdR3lksbdyFxduRXFPK.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
    "title": "Avengers: Doomsday",
    "year": "2026",
    "kind": "movie",
    "src": "https://image.tmdb.org/t/p/original/rObL4of4eFA8yWaN9pRFo9aOVNi.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
-   "title": "Posedlost",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/5lTZyuBTNOfawsfPT8Q0cIg6qAF.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
-   "title": "Campus Drivers",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/yQHskBQhYsnxcoRsYHESSOUaRja.jpg",
-   "width": 3840,
-   "height": 2160
-  },
-  {
-   "title": "Ústav",
-   "year": "2025",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/9LALiE3I9dInFmMlI1BvzlhFMmP.jpg",
    "width": 3840,
    "height": 2160
   },
@@ -219,10 +187,42 @@
    "height": 2160
   },
   {
-   "title": "Spider-Man: Zbrusu nový den",
+   "title": "Největší borec",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/b57tPAE2rpUoNpa63o7U2sFvIZs.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Posedlost",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/subj7knTn4DeS6KS7qI66EQKe9i.jpg",
+   "src": "https://image.tmdb.org/t/p/original/5lTZyuBTNOfawsfPT8Q0cIg6qAF.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Wildwood: Tajemství zakázaného lesa",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/7S9zJTVtK3dvhChTO1MDVu4bmBu.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Hope",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/3KvGTuNX47Pdqlg9ossua2TFKrZ.jpg",
+   "width": 3840,
+   "height": 2160
+  },
+  {
+   "title": "Psí Vánoce",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/6OOiqbY4Di0I6dNw0fyOBIxzK5k.jpg",
    "width": 3840,
    "height": 2160
   },
@@ -235,10 +235,10 @@
    "height": 2160
   },
   {
-   "title": "Psí Vánoce",
+   "title": "TO: Příběh z Derry",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/6OOiqbY4Di0I6dNw0fyOBIxzK5k.jpg",
+   "src": "https://image.tmdb.org/t/p/original/hw3d1wDXTsEVyViubbTgHsMIvX0.jpg",
    "width": 3840,
    "height": 2160
   }
