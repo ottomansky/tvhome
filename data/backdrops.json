@@ -1,7 +1,24 @@
 {
  "source": "TMDB trending this week, streaming data by JustWatch. This product uses the TMDB API but is not endorsed or certified by TMDB.",
- "updated": "2026-11-23T14:42Z",
+ "updated": "2026-11-24T14:55Z",
  "items": [
+  {
+   "title": "Odyssea",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/c7btGYblBnfAaw713WvFM0Kimc7.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Odysseus  byl král řeckého ostrova Ithaka, který dle legend a básníka Homéra vymyslel slavného Trójského koně, jenž výraznou měrou pomohl obelstít obránce Tróji a ukončit tak vyčerpávající dobývání tohoto města. Po skončení bojů netouží Odysseus po ničem jiném než vrátit se domů, za manželkou Pénelopé a synem Télemachem. Svými odvážnými činy však dle pověstí rozhněval bohy a ti se mu rozhodli návrat co nejvíc zkomplikovat. I proto se slovo „odysea“ stalo synonymem pro cestu plnou překážek, které poutníka odvádějí od jeho cíle, místo toho, aby ho k němu přibližovaly. Zatímco Odysseus vzdoruje bohům, obrům, svůdné kouzelnici Kirké a dalším nebezpečím, jeho žena Pénelopé vzdoruje mužům, kteří chtějí uchvátit ji a s ní celé ithacké království.",
+   "genres": [
+    "Dobrodružný",
+    "Akční",
+    "Fantasy"
+   ],
+   "providers": [],
+   "rating": 8.0,
+   "length": "2 h 52 min"
+  },
   {
    "title": "Hunger Games: Úsvit sklizně",
    "year": "2026",
@@ -21,27 +38,10 @@
    "status": "V kinech"
   },
   {
-   "title": "Odyssea",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/c7btGYblBnfAaw713WvFM0Kimc7.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Odysseus  byl král řeckého ostrova Ithaka, který dle legend a básníka Homéra vymyslel slavného Trójského koně, jenž výraznou měrou pomohl obelstít obránce Tróji a ukončit tak vyčerpávající dobývání tohoto města. Po skončení bojů netouží Odysseus po ničem jiném než vrátit se domů, za manželkou Pénelopé a synem Télemachem. Svými odvážnými činy však dle pověstí rozhněval bohy a ti se mu rozhodli návrat co nejvíc zkomplikovat. I proto se slovo „odysea“ stalo synonymem pro cestu plnou překážek, které poutníka odvádějí od jeho cíle, místo toho, aby ho k němu přibližovaly. Zatímco Odysseus vzdoruje bohům, obrům, svůdné kouzelnici Kirké a dalším nebezpečím, jeho žena Pénelopé vzdoruje mužům, kteří chtějí uchvátit ji a s ní celé ithacké království.",
-   "genres": [
-    "Dobrodružný",
-    "Akční",
-    "Fantasy"
-   ],
-   "providers": [],
-   "rating": 8.0,
-   "length": "2 h 52 min"
-  },
-  {
    "title": "Avengers: Doomsday",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/rObL4of4eFA8yWaN9pRFo9aOVNi.jpg",
+   "src": "https://image.tmdb.org/t/p/original/s4v0UX1anfXm0UvloLsTTJ4v222.jpg",
    "width": 3840,
    "height": 2160,
    "overview": "Oblíbení hrdinové ze tří odlišných vesmírů míří na smrtící střetný kurz a čelí existenční hrozbě, jakou dosud nepoznali.",
@@ -51,7 +51,7 @@
     "Dobrodružný"
    ],
    "providers": [],
-   "length": "2 h 45 min"
+   "length": "2 h 30 min"
   },
   {
    "title": "Neségry",
@@ -69,7 +69,7 @@
    "providers": [
     "Netflix"
    ],
-   "rating": 6.8,
+   "rating": 7.1,
    "length": "1 h 47 min",
    "status": "Na Netflix"
   },
@@ -111,6 +111,38 @@
    "status": "Na SkyShowtime"
   },
   {
+   "title": "The Social Reckoning",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/x9oYjgeedPmWIokjdvhwNZuYHax.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Bývalá produktová manažerka Facebooku Frances Haugen se rozhodne usvědčit vlastní společnost z upřednostňování zisku před bezpečností a zdravím svých uživatelů. Když zjistí, jak algoritmy platformy záměrně podporují dezinformace, nenávistný projev a mají devastační vliv na duševní zdraví mladistvých, tajně vynese desetitisíce stran interních dokumentů.",
+   "genres": [
+    "Drama",
+    "Thriller"
+   ],
+   "providers": [],
+   "rating": 7.0,
+   "length": "1 h 53 min"
+  },
+  {
+   "title": "Uvidíš všechno",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/rrbbzCyS45yooXpUGJatfptlHYI.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Třicet čtyři dní předtím, než má nastoupit do vězení, pozve notoricky známá zakladatelka společnosti Theranos Elizabeth Holmes skeptický filmový štáb, aby zaznamenal každý její krok. To, co začíná jako intimní portrét, se promění v ohromující tříletou cestu.",
+   "genres": [
+    "Dokumentární"
+   ],
+   "providers": [],
+   "rating": 8.8,
+   "length": "2 h 55 min",
+   "status": "V kinech"
+  },
+  {
    "title": "Pán prstenů: Prsteny moci",
    "year": "2022",
    "kind": "tv",
@@ -131,43 +163,21 @@
    "status": "Nový díl 25. listopadu"
   },
   {
-   "title": "Tělo",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/cr5cwJzkm8nwiZLbXUb3ti0e40X.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Provinilé pocity, hříšné touhy a zjevení duchů? O Halloweenu uspořádá dívčí taneční soubor z katolické školy přijímací rituál pro novou členku, který se ale pekelně zvrtne.",
-   "genres": [
-    "Mysteriózní",
-    "Drama"
-   ],
-   "providers": [
-    "Netflix"
-   ],
-   "rating": 8.0,
-   "length": "1 řada",
-   "status": "Na Netflix"
-  },
-  {
-   "title": "Madden",
+   "title": "Wicker",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/lRsapglJZIyMfGl8oQyNASlZqDC.jpg",
+   "src": "https://image.tmdb.org/t/p/original/r4DTGm1f1r23cyjRJ5kFMh7qYlj.jpg",
    "width": 3840,
    "height": 2160,
-   "overview": "MADDEN je inspirován životem jedné z největších amerických ikon. Vypráví příběh Johna Maddena a jeho nejlepšího přítele Ala Davise. Od triumfu v Super Bowlu s týmem Raiders přes kariéru komentátora amerického fotbalu, až po vznik legendární videohry Madden NFL. Film je oslavou výjimečného člověka, který svým talentem, osobností a láskou ke sportu a lidem dokázal oslovit celé generace.",
+   "overview": "Proutěný manžel dělá dřevěné pomyšlení osamělé rybářce.",
    "genres": [
-    "Drama",
-    "Historický",
+    "Romantický",
+    "Fantasy",
     "Komedie"
    ],
-   "providers": [
-    "Amazon Prime Video"
-   ],
-   "rating": 6.8,
-   "length": "1 h 52 min",
-   "status": "Na Amazon Prime Video"
+   "providers": [],
+   "rating": 7.4,
+   "length": "1 h 45 min"
   },
   {
    "title": "Bodyguardka",
@@ -189,20 +199,24 @@
    "status": "Na Netflix"
   },
   {
-   "title": "The Beast",
+   "title": "Madden",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/r5RYEmZzm1Z6imS7XfiKPnMlyc7.jpg",
+   "src": "https://image.tmdb.org/t/p/original/lRsapglJZIyMfGl8oQyNASlZqDC.jpg",
    "width": 3840,
    "height": 2160,
-   "overview": "Když neznámá ozbrojená skupina zorganizuje státní převrat v USA, prezident je odříznutý a musí se naučit ovládat utajené schopnosti svého prezidentského vozu, aby zachránil sebe, zraněného agenta Tajné služby i svou manželku.",
+   "overview": "MADDEN je inspirován životem jedné z největších amerických ikon. Vypráví příběh Johna Maddena a jeho nejlepšího přítele Ala Davise. Od triumfu v Super Bowlu s týmem Raiders přes kariéru komentátora amerického fotbalu, až po vznik legendární videohry Madden NFL. Film je oslavou výjimečného člověka, který svým talentem, osobností a láskou ke sportu a lidem dokázal oslovit celé generace.",
    "genres": [
-    "Akční",
-    "Thriller"
+    "Drama",
+    "Historický",
+    "Komedie"
    ],
-   "providers": [],
-   "rating": 4.9,
-   "length": "1 h 39 min"
+   "providers": [
+    "Amazon Prime Video"
+   ],
+   "rating": 6.7,
+   "length": "1 h 52 min",
+   "status": "Na Amazon Prime Video"
   },
   {
    "title": "Hexe: Magický svět",
@@ -222,19 +236,69 @@
    "status": "V kinech"
   },
   {
+   "title": "Tělo",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/cr5cwJzkm8nwiZLbXUb3ti0e40X.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Provinilé pocity, hříšné touhy a zjevení duchů? O Halloweenu uspořádá dívčí taneční soubor z katolické školy přijímací rituál pro novou členku, který se ale pekelně zvrtne.",
+   "genres": [
+    "Mysteriózní",
+    "Drama"
+   ],
+   "providers": [
+    "Netflix"
+   ],
+   "rating": 8.0,
+   "length": "1 řada",
+   "status": "Na Netflix"
+  },
+  {
+   "title": "The Beast",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/r5RYEmZzm1Z6imS7XfiKPnMlyc7.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Když neznámá ozbrojená skupina zorganizuje státní převrat v USA, prezident je odříznutý a musí se naučit ovládat utajené schopnosti svého prezidentského vozu, aby zachránil sebe, zraněného agenta Tajné služby i svou manželku.",
+   "genres": [
+    "Akční",
+    "Thriller"
+   ],
+   "providers": [],
+   "rating": 4.9,
+   "length": "1 h 39 min"
+  },
+  {
    "title": "Vánoce na sílu",
    "year": "2026",
    "kind": "movie",
    "src": "https://image.tmdb.org/t/p/original/x6kwEsxxqLIoqpIrZOXRV0LORqm.jpg",
    "width": 3840,
    "height": 2160,
-   "overview": "After weather grounds all flights east for the holidays, two work rivals competing for the same job begrudgingly embark on a cross-country road trip that brings them closer together in ways they never imagined.",
+   "overview": "Soupeřící nakladatelské editory Ryana Mitchella a Hannah Hendricksovou na cestě překvapí vánoční sněhová bouře. Jsou nuceni společně si pronajmout auto na cestu do New Yorku, kde oba očekává příležitost na záchranu kariéry. S přibývajícími lapáliemi a zajížďkami do malých měst po cestě sváteční nálada zvolna přetaví jejich zuřivé soupeření v něco nečekaného.",
    "genres": [
-    "Komedie",
-    "Romantický"
+    "Romantický",
+    "Komedie"
    ],
    "providers": [],
-   "length": "1 h 47 min"
+   "length": "1 h 50 min"
+  },
+  {
+   "title": "Duna: Část třetí",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/i5E9H7Ik0u61ylDDTbmUpTL3Yw.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "V závěru epické ságy kráčí Muad’dib, dědic nepředstavitelné moci, vstříc nevyhnutelnému osudu – naplnit prastarý plán a zrodit mezi lidmi vládce, jenž nepřijde z nebes, ale povstane z krve, víry a písku… aby ovládl osud všech.",
+   "genres": [
+    "Vědeckofantastický",
+    "Dobrodružný"
+   ],
+   "providers": [],
+   "length": "2 h 30 min"
   },
   {
    "title": "Godzilla Minus Zero",
@@ -253,6 +317,42 @@
    "rating": 7.7,
    "length": "2 h 15 min",
    "status": "V kinech"
+  },
+  {
+   "title": "VisionQuest",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/uoXXbN2PrOxH6UKyP7kYwmGpAAP.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "S odměnou vypsanou na jeho hlavu musí Vision čelit své podstatě a odolat Ultronovu vlivu, aby přežil.",
+   "genres": [
+    "Sci-Fi & Fantasy",
+    "Drama"
+   ],
+   "providers": [
+    "Disney Plus"
+   ],
+   "rating": 8.2,
+   "length": "1 řada",
+   "status": "Na Disney Plus"
+  },
+  {
+   "title": "Resident Evil",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/3icyRAqgakNcQn6aDVz9libFmBA.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Kurýr Bryan se vydává doručit zásilku do Raccoon City – města, které se mezitím propadá do naprostého chaosu po úniku smrtícího viru. Jak se ulice zaplňují nakaženými a realita se mění v noční můru, Bryan je nucen bojovat o přežití, improvizovat s omezenými prostředky a čelit nejen hordám nemrtvých, ale i rozpadu společnosti kolem sebe. Izolovaný, bez pomoci a bez jasného vysvětlení toho, co se vlastně stalo, se postupně dostává hlouběji do centra katastrofy – a zjišťuje, že za nákazou stojí něco mnohem děsivějšího, než si dokázal představit.",
+   "genres": [
+    "Horor",
+    "Vědeckofantastický",
+    "Dobrodružný"
+   ],
+   "providers": [],
+   "rating": 7.5,
+   "length": "1 h 34 min"
   },
   {
    "title": "Percy Jackson a Olympané",
@@ -276,90 +376,20 @@
    "status": "Nový díl 27. listopadu"
   },
   {
-   "title": "Duna: Část třetí",
+   "title": "Všichni fotři jsou lotři",
    "year": "2026",
    "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/i5E9H7Ik0u61ylDDTbmUpTL3Yw.jpg",
+   "src": "https://image.tmdb.org/t/p/original/1zcCFBcqEQtAtXDh6EoBPy16RLR.jpg",
    "width": 3840,
    "height": 2160,
-   "overview": "V závěru epické ságy kráčí Muad’dib, dědic nepředstavitelné moci, vstříc nevyhnutelnému osudu – naplnit prastarý plán a zrodit mezi lidmi vládce, jenž nepřijde z nebes, ale povstane z krve, víry a písku… aby ovládl osud všech.",
+   "overview": "Pokračování úspěšné komediální série, jejíž hrdina Greg Jebal má permanentní problémy s tchánem. Teď se navíc přidaly potíže s potenciální snachou, která si s Gregem vůbec nerozumí. Zato s jeho tchánem vychází podezřele dobře.",
    "genres": [
-    "Vědeckofantastický",
-    "Dobrodružný"
+    "Komedie",
+    "Romantický"
    ],
    "providers": [],
-   "length": "2 h 30 min"
-  },
-  {
-   "title": "Dokonalí lháři",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/m4i6oWU1LoAkYVuV37L7UyI2tcy.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Jude Derryová přichází na prestižní univerzitu Tagus s tajnou misí: infiltrovat se mezi bratry Cashovy a odhalit pravdu o tom, jak zemřel její vlastní bratr. Jenže snaha o pomstu vyústí v milostný trojúhelník, zakázanou touhu a lži. Jak se Jude blíží odhalení pravdy, zjišťuje, že na ni možná není připravená.",
-   "genres": [
-    "Drama",
-    "Romantický",
-    "Thriller"
-   ],
-   "providers": [
-    "Amazon Prime Video"
-   ],
-   "length": "1 h 48 min",
-   "status": "Na Amazon Prime Video"
-  },
-  {
-   "title": "VisionQuest",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/uoXXbN2PrOxH6UKyP7kYwmGpAAP.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "S odměnou vypsanou na jeho hlavu musí Vision čelit své podstatě a odolat Ultronovu vlivu, aby přežil.",
-   "genres": [
-    "Sci-Fi & Fantasy",
-    "Drama"
-   ],
-   "providers": [
-    "Disney Plus"
-   ],
-   "rating": 8.2,
-   "length": "1 řada",
-   "status": "Na Disney Plus"
-  },
-  {
-   "title": "The Social Reckoning",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/x9oYjgeedPmWIokjdvhwNZuYHax.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Frances Haugen, a young Facebook engineer, enlists the help of Jeff Horwitz, a Wall Street Journal reporter, to go on a dangerous journey that ends up blowing the whistle on the social network's most guarded secrets.",
-   "genres": [
-    "Drama",
-    "Thriller"
-   ],
-   "providers": [],
-   "rating": 7.0,
-   "length": "1 h 53 min"
-  },
-  {
-   "title": "Resident Evil",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/3icyRAqgakNcQn6aDVz9libFmBA.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Kurýr Bryan se vydává doručit zásilku do Raccoon City – města, které se mezitím propadá do naprostého chaosu po úniku smrtícího viru. Jak se ulice zaplňují nakaženými a realita se mění v noční můru, Bryan je nucen bojovat o přežití, improvizovat s omezenými prostředky a čelit nejen hordám nemrtvých, ale i rozpadu společnosti kolem sebe. Izolovaný, bez pomoci a bez jasného vysvětlení toho, co se vlastně stalo, se postupně dostává hlouběji do centra katastrofy – a zjišťuje, že za nákazou stojí něco mnohem děsivějšího, než si dokázal představit.",
-   "genres": [
-    "Horor",
-    "Vědeckofantastický",
-    "Dobrodružný"
-   ],
-   "providers": [],
-   "rating": 7.5,
-   "length": "1 h 34 min"
+   "length": "1 h 45 min",
+   "status": "V kinech od 26. listopadu"
   },
   {
    "title": "Yellowjackets",
@@ -380,6 +410,23 @@
    "rating": 7.4,
    "length": "4 řady",
    "status": "Nový díl 29. listopadu"
+  },
+  {
+   "title": "Já, Rocky",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/1lnnjBCRLZzKRhQipK5zm61YkPe.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "The electrifying true story about an unknown actor with an unshakable belief that he wasn't just meant to write Rocky—he was meant to be Rocky Balboa. Told \"no\" at every turn, Sylvester Stallone bets everything on himself, holding the line on playing the lead against seemingly impossible odds.",
+   "genres": [
+    "Drama",
+    "Historický"
+   ],
+   "providers": [],
+   "rating": 8.4,
+   "length": "2 h 8 min",
+   "status": "V kinech"
   },
   {
    "title": "Dexter: Vzkříšení",
@@ -403,24 +450,20 @@
    "status": "Nový díl 29. listopadu"
   },
   {
-   "title": "Vyvolení",
-   "year": "2019",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/2YQFwn9aF7huTFHxn9lFTAn14F.jpg",
+   "title": "V srdci divočiny",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/yE766yhgg98tKwTKd8CyNvAtmn6.jpg",
    "width": 3840,
    "height": 2160,
-   "overview": "Život Krista očima těch, kteří se s ním setkali pod názvem Vyvolení.",
+   "overview": "James Belmont, penzionovaný vojenský expert, se se svým psem Odinem, taktéž válečným veteránem, vydává na výlet do aljašské divočiny. Jejich výprava se povážlivě zkomplikuje, když James vinou zdravotní indispozice nezvládne pilotování malého letadla a havaruje. Ti dva už v minulosti ve válečné zóně dokázali, že se jeden na druhého můžou stoprocentně spolehnout. Zvládnou ale spolu zdolat nástrahy aljašské divočiny, kde číhá smrtelné nebezpečí na každém kroku? A poté, co oba letecká havárie nepěkně pocuchala? A protože jedinou nadějí na přežití je pro oba návrat do civilizace, musí se vydat na cestu, která se promění v boj s přírodou v její nejdrsnější podobě. Když ale máte po boku dobrého parťáka, lze zvládnout cokoliv.",
    "genres": [
-    "Action & Adventure",
-    "Rodinný",
-    "Drama"
+    "Dobrodružný",
+    "Thriller"
    ],
-   "providers": [
-    "Netflix"
-   ],
-   "rating": 8.9,
-   "length": "6 řad",
-   "status": "Nový díl 29. listopadu"
+   "providers": [],
+   "rating": 7.9,
+   "length": "1 h 41 min"
   },
   {
    "title": "Neskutečná máma",
@@ -439,6 +482,37 @@
    "status": "V kinech"
   },
   {
+   "title": "Blade Runner 2099",
+   "year": "2026",
+   "kind": "tv",
+   "src": "https://image.tmdb.org/t/p/original/7UAUa3qQBtm7Z07d2BwiBPGBGbe.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Fifty years after the events of Blade Runner 2049, Los Angeles has been reborn, just not by humanity. Cora, a fugitive in a final bid to stop running, takes on one last identity: a Blade Runner. Forced to partner with Olwen, a Replicant days from dying, she hunts down a runaway hiding a truth that could collapse their fragile city.",
+   "genres": [
+    "Sci-Fi & Fantasy"
+   ],
+   "providers": [],
+   "length": "1 řada",
+   "status": "Nový díl 24. listopadu"
+  },
+  {
+   "title": "Fjord",
+   "year": "2026",
+   "kind": "movie",
+   "src": "https://image.tmdb.org/t/p/original/iPVAMaI0W4lr7Rl56m0H388eR5.jpg",
+   "width": 3840,
+   "height": 2160,
+   "overview": "Mladá rumunsko-norská rodina Gheorgiových se usadí v odlehlé vesnici u norských fjordů, kde hledá nový začátek. Vřelé přijetí ze strany nových sousedů však naruší nečekané obvinění, jež rozvrátí její poklidný život. Rozbíhá se vyšetřování a soudní proces, který proti sobě staví tradiční rodinné hodnoty a přísná pravidla norského systému na ochranu dětí.",
+   "genres": [
+    "Drama"
+   ],
+   "providers": [],
+   "rating": 7.2,
+   "length": "2 h 26 min",
+   "status": "V kinech"
+  },
+  {
    "title": "Ebenezer: Vánoční koleda",
    "year": "2026",
    "kind": "movie",
@@ -448,103 +522,12 @@
    "overview": "An elderly miser embarks on a supernatural journey after visits from the ghost of his former business partner and the Spirits of Christmas Past, Present, and Yet to Come force him to confront his past and fight for a second chance at happiness.",
    "genres": [
     "Fantasy",
-    "Drama",
-    "Horor"
+    "Komedie"
    ],
    "providers": [],
    "rating": 7.5,
    "length": "1 h 55 min",
    "status": "V kinech"
-  },
-  {
-   "title": "Já, Rocky",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/1lnnjBCRLZzKRhQipK5zm61YkPe.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "The electrifying true story about an unknown actor with an unshakable belief that he wasn't just meant to write Rocky—he was meant to be Rocky Balboa. Told \"no\" at every turn, Sylvester Stallone bets everything on himself, holding the line on playing the lead against seemingly impossible odds.",
-   "genres": [
-    "Drama",
-    "Historický"
-   ],
-   "providers": [],
-   "rating": 8.4,
-   "length": "2 h 8 min",
-   "status": "V kinech"
-  },
-  {
-   "title": "V srdci divočiny",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/yE766yhgg98tKwTKd8CyNvAtmn6.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "James Belmont, penzionovaný vojenský expert, se se svým psem Odinem, taktéž válečným veteránem, vydává na výlet do aljašské divočiny. Jejich výprava se povážlivě zkomplikuje, když James vinou zdravotní indispozice nezvládne pilotování malého letadla a havaruje. Ti dva už v minulosti ve válečné zóně dokázali, že se jeden na druhého můžou stoprocentně spolehnout. Zvládnou ale spolu zdolat nástrahy aljašské divočiny, kde číhá smrtelné nebezpečí na každém kroku? A poté, co oba letecká havárie nepěkně pocuchala? A protože jedinou nadějí na přežití je pro oba návrat do civilizace, musí se vydat na cestu, která se promění v boj s přírodou v její nejdrsnější podobě. Když ale máte po boku dobrého parťáka, lze zvládnout cokoliv.",
-   "genres": [
-    "Dobrodružný",
-    "Thriller"
-   ],
-   "providers": [],
-   "rating": 7.8,
-   "length": "1 h 41 min"
-  },
-  {
-   "title": "One Piece",
-   "year": "1999",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/2rmK7mnchw9Xr3XdiTFSxTTLXqv.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "Před dvaceti lety byl popraven nejslavnější pirát všech dob Gold Rodger, který údajně schoval na Grand Line největší poklad všech dob. To odstartovalo éru pirátů. Hlavní hrdina je Monkey D. Luffy, chlapec, který v mládí snědl omylem tajuplné ovoce, které dává lidem nadlidské schopnosti. Několik let poté se Luffy vydal na moře po stopách slavného piráta, aby našel se svou novou posádkou slavný poklad One Piece. Na cestě za svými sny se Luffy a jeho přátelé dostávají do jednoho dobrodružství za druhým.",
-   "genres": [
-    "Action & Adventure",
-    "Komedie",
-    "Animovaný"
-   ],
-   "providers": [
-    "Crunchyroll",
-    "Crunchyroll Amazon Channel"
-   ],
-   "rating": 8.8,
-   "length": "23 řad",
-   "status": "Na Crunchyroll"
-  },
-  {
-   "title": "12 12 12",
-   "year": "2026",
-   "kind": "tv",
-   "src": "https://image.tmdb.org/t/p/original/tjy25xpiFeo2gahl7N0hoxbRtG7.jpg",
-   "width": 3840,
-   "height": 2158,
-   "overview": "Loupež se plánuje 12 měsíců, probíhá 12 hodin a zloděje, kterého nechytí do 12 dní, už nechytí nikdy. Ve třech strhujících časových rovinách se střetávají agent FBI a lupič z povolání a po celé Evropě rozehrávají smrtící hru na kočku a myš.",
-   "genres": [
-    "Action & Adventure",
-    "Krimi",
-    "Drama"
-   ],
-   "providers": [
-    "Apple TV",
-    "Apple TV Amazon Channel"
-   ],
-   "length": "1 řada",
-   "status": "Nový díl 26. listopadu"
-  },
-  {
-   "title": "A Talent for Murder",
-   "year": "2026",
-   "kind": "movie",
-   "src": "https://image.tmdb.org/t/p/original/b3EGc5Ucj7wIeUjFc64Wq4IYgkp.jpg",
-   "width": 3840,
-   "height": 2160,
-   "overview": "A young man travels from New York to Switzerland to try to persuade acclaimed thriller writer Patricia Highsmith to write one final installment of her Tom Ripley series, with his efforts gradually turning more sinister.",
-   "genres": [
-    "Thriller",
-    "Drama",
-    "Krimi"
-   ],
-   "providers": [],
-   "length": "1 h 46 min"
   }
  ]
 }
